@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "downloadImage": "node src/getChampImages.js"
   },
   "dependencies": {
+    "buffer": "^6.0.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
