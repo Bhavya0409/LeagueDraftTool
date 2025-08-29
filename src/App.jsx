@@ -6,9 +6,12 @@ import "./App.css";
 
 import styled from "styled-components";
 
+import { CHAMPIONS } from "./utils";
+
 const Container = styled.div`
-  width: 1280px;
-  min-height: 750px;
+  // width: 1280px;
+  max-width: 1280px;
+  min-height: 800px;
   display: grid;
   grid-template-rows: auto auto 1fr;
 `;
@@ -43,7 +46,7 @@ const BlueSideBanContainer = styled(BanContainer)``;
 const RedSideBanContainer = styled(BanContainer)``;
 const MainContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 8fr 1fr;
+  grid-template-columns: 1fr 7fr 1fr;
   height: 100%;
 `;
 const ColumnContainer = styled.div`
@@ -58,16 +61,32 @@ const SideColumnContainer = styled(ColumnContainer)`
 const LeftColumnContainer = styled(SideColumnContainer)``;
 const MiddleColumnContainer = styled(ColumnContainer)`
   background: #775130ff;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 8px;
+  align-content: start;
 `;
 const RightColumnContainer = styled(SideColumnContainer)``;
 const ChampionContainer = styled.div`
   background: black;
-  width: 112px;
-  height: 112px;
+  width: 128px;
+  height: 128px;
   border-radius: 8px;
 `;
 
 const App = () => {
+  // Import all champion images as an object
+  const championImages = import.meta.glob("./assets/champs/*.png", {
+    eager: true,
+  });
+
+  // Helper to get image by champion name
+  const getChampionImage = (champion) => {
+    // Find the key that matches the champion filename
+    const key = `./assets/champs/${champion}.png`;
+    return championImages[key]?.default || "";
+  };
   return (
     <Container>
       <SidesContainer>
@@ -88,7 +107,12 @@ const App = () => {
           <ChampionContainer />
           <ChampionContainer />
         </LeftColumnContainer>
-        <MiddleColumnContainer>Middle Container</MiddleColumnContainer>
+        <MiddleColumnContainer>
+          {/* <img src={AatroxPng} alt="Aatrox" /> */}
+          {CHAMPIONS.map((champ) => (
+            <img key={champ} src={getChampionImage(champ)} alt={champ} />
+          ))}
+        </MiddleColumnContainer>
         <RightColumnContainer>
           <ChampionContainer />
           <ChampionContainer />
