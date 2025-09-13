@@ -1,5 +1,9 @@
 import styled from "styled-components";
+import { useDroppable } from "@dnd-kit/core";
+
 import { CHAMPIONS } from "../utils";
+
+import Champ from "./Champ";
 
 const Container = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100..900&display=swap");
@@ -80,24 +84,11 @@ const ChampsContainer = styled.div`
     display: none;
   }
 `;
-const Champ = styled.img`
-  height: 80px;
-  width: 80px;
-  border-radius: 8px;
-`;
 
 const Main = () => {
-  // Import all champion images as an object
-  const championImages = import.meta.glob("../assets/champs/*.png", {
-    eager: true,
+  const { setNodeRef: setBlueBan1Ref } = useDroppable({
+    id: "blue-ban-1",
   });
-
-  // Helper to get image by champion name
-  const getChampionImage = (champion) => {
-    // Find the key that matches the champion filename
-    const key = `../assets/champs/${champion}.png`;
-    return championImages[key]?.default || "";
-  };
 
   return (
     <Container>
@@ -109,7 +100,7 @@ const Main = () => {
       <BansContainer>
         <TeamBanContainer blue>
           <RoundBanContainer blue>
-            <ChampionBox />
+            <ChampionBox ref={setBlueBan1Ref} />
             <ChampionBox />
             <ChampionBox />
           </RoundBanContainer>
@@ -143,7 +134,7 @@ const Main = () => {
 
         <ChampsContainer>
           {CHAMPIONS.map((champ) => (
-            <Champ key={champ} src={getChampionImage(champ)} alt={champ} />
+            <Champ key={champ} champName={champ} />
           ))}
         </ChampsContainer>
 
