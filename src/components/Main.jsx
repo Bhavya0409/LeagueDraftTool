@@ -17,7 +17,7 @@ import {
 
 import ChampArea from "./ChampArea";
 import ChampPool from "./ChampPool";
-import Champ from "./Champ";
+import DisabledChampionImage from "./DisabledChampionImage";
 
 const Container = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100..900&display=swap");
@@ -166,13 +166,21 @@ const Main = () => {
           sideEffects: defaultDropAnimationSideEffects({
             styles: {
               active: {
+                // after droppping, snapping back to position
                 filter: "grayscale(1)",
+                cursor: "grabbing",
+                background: "green",
+              },
+              dragOverlay: {
+                cursor: "grabbing",
               },
             },
           }),
         }}
       >
-        {activeId ? <Champ champName={activeId} /> : null}
+        {activeId ? (
+          <DisabledChampionImage champName={activeId} isDragging={true} />
+        ) : null}
       </DragOverlay>
       <Container>
         <TeamContainer>

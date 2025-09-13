@@ -1,32 +1,30 @@
 import styled from "styled-components";
 import { useDraggable } from "@dnd-kit/core";
 
+// cursor: ${(props) => (props.isDragging ? "grabbing" : "grab")};
 const ChampImage = styled.img`
   height: 80px;
   width: 80px;
   border-radius: 8px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  filter: ${(props) => (props.disabled ? `grayscale(1)` : "none")};,
 `;
 
-const Champ = ({ champName, disabled }) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id: champName,
-    });
+const Champ = ({ champName }) => {
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: champName,
+  });
   const getImageUrl = (name) => {
     return new URL(`../assets/champs/${name}.png`, import.meta.url).href;
   };
-  const style = transform
+  const style = isDragging
     ? {
         filter: `grayscale(1)`,
-        cursor: "grabbing",
+        cursor: "grabbing!important",
       }
-    : undefined;
-
-  // if (champName === "Aatrox") {
-  //   console.log("Rendering Aatrox", { isDragging, disabled });
-  // }
+    : {
+        cursor: "grab",
+        background: "red",
+      };
 
   return (
     <ChampImage

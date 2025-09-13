@@ -5,15 +5,16 @@ const Image = styled.img`
   width: 80px;
   border-radius: 8px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  filter: grayscale(1);
+  filter: ${(props) => (props.isDragging ? "grayscale(0)" : "grayscale(1)")};
+  cursor: ${(props) => (props.isDragging ? "grabbing" : "not-allowed")};
 `;
 
-const DisabledChampionImage = ({ champName }) => {
+const DisabledChampionImage = ({ champName, isDragging = false }) => {
   const getImageUrl = (name) => {
     return new URL(`../assets/champs/${name}.png`, import.meta.url).href;
   };
 
-  return <Image src={getImageUrl(champName)} />;
+  return <Image src={getImageUrl(champName)} isDragging={isDragging} />;
 };
 
 export default DisabledChampionImage;
