@@ -171,3 +171,9 @@ export const CHAMPIONS = [
   "Zoe",
   "Zyra",
 ];
+
+export const CHAMP_POOL = "champ-pool";
+export const SIDE_BLUE = "blue";
+export const SIDE_RED = "red";
+export const TYPE_BAN = "ban";
+export const TYPE_PICK = "pick";

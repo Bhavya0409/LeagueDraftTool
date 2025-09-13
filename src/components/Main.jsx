@@ -1,10 +1,18 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { useDroppable } from "@dnd-kit/core";
+import { DndContext } from "@dnd-kit/core";
 
-import { CHAMPIONS } from "../utils";
+import {
+  CHAMPIONS,
+  CHAMP_POOL,
+  SIDE_BLUE,
+  SIDE_RED,
+  TYPE_BAN,
+  TYPE_PICK,
+} from "../utils";
 
-import Champ from "./Champ";
 import ChampArea from "./ChampArea";
+import ChampPool from "./ChampPool";
 
 const Container = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100..900&display=swap");
@@ -53,14 +61,11 @@ const RoundBanContainer = styled.div`
   flex-direction: row;
   column-gap: 12px;
   flex-direction: ${(props) => (props.blue ? "row" : "row-reverse")};
-`;
-const ChampionBox = styled.div`
-  height: 80px;
-  width: 80px;
-  border-radius: 8px;
-  border: 1px solid white;
-  background: #080808;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  & > *:nth-child(3) {
+    margin-right: ${(props) => (props.blue ? "32px" : "0")};
+    margin-left: ${(props) => (props.blue ? "0" : "32px")};
+  }
 `;
 const MainContainer = styled.div`
   margin-top: 96px;
@@ -73,77 +78,100 @@ const PicksContainer = styled.div`
   flex-direction: column;
   row-gap: 24px;
 `;
-const ChampsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(8, minmax(80px, 1fr));
-  gap: 24px;
-  overflow-y: scroll;
-  height: 496px;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
 
 const Main = () => {
+  // === Init ===
+  const [champions, setChampions] = useState(
+    CHAMPIONS.map((champ) => ({ name: champ, id: CHAMP_POOL })),
+  );
+
+  // === Helpers ===
+  const getAvailableChamps = () => {
+    return champions.filter((c) => c.id === CHAMP_POOL).map((c) => c.name);
+  };
+  const getSelectedChamp = (side, type, order) => {
+    return (
+      champions.find((c) => c.id === `${side}-${type}-${order}`)?.name || null
+    );
+  };
+
+  // === Handlers ===
+  const onDragEnd = (event) => {
+    const area = event.over.id;
+
+    setChampions(
+      champions.map((champ) =>
+        champ.name === event.active.id ? { ...champ, id: area } : champ,
+      ),
+    );
+
+    console.log("end", { event });
+  };
+  const onDragStart = (event) => {
+    console.log("start", { event });
+  };
+  const onDragOver = (event) => {
+    console.log("over", { event });
+  };
+  const onDragMove = (event) => {
+    //console.log("move", { event });
+  };
+
+  // === Render Helpers ===
+  const renderChampAreas = (side, type) => {
+    return Array(5)
+      .fill()
+      .map((_, i) => (
+        <ChampArea
+          side={side}
+          type={type}
+          order={i}
+          champion={getSelectedChamp(side, type, i)}
+        />
+      ));
+  };
+
+  // === Return ===
   return (
-    <Container>
-      <TeamContainer>
-        <TeamInput color={"#3E7BFA"} placeholder={"Enter Team Name..."} />
-        <TeamInput color={"#FF5C5C"} placeholder={"Enter Team Name..."} />
-      </TeamContainer>
+    <DndContext
+      onDragEnd={onDragEnd}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDragMove={onDragMove}
+    >
+      <Container>
+        <TeamContainer>
+          <TeamInput color={"#3E7BFA"} placeholder={"Enter Team Name..."} />
+          <TeamInput color={"#FF5C5C"} placeholder={"Enter Team Name..."} />
+        </TeamContainer>
 
-      <BansContainer>
-        <TeamBanContainer blue>
-          <RoundBanContainer blue>
-            <ChampArea side="blue" type="ban" order={1} />
-            <ChampArea side="blue" type="ban" order={2} />
-            <ChampArea side="blue" type="ban" order={3} />
-          </RoundBanContainer>
-          <RoundBanContainer blue>
-            <ChampArea side="blue" type="ban" order={4} />
-            <ChampArea side="blue" type="ban" order={5} />
-          </RoundBanContainer>
-        </TeamBanContainer>
+        <BansContainer>
+          <TeamBanContainer blue>
+            <RoundBanContainer blue>
+              {renderChampAreas(SIDE_BLUE, TYPE_BAN)}
+            </RoundBanContainer>
+          </TeamBanContainer>
 
-        <TeamBanContainer red>
-          <RoundBanContainer red>
-            <ChampArea side="red" type="ban" order={1} />
-            <ChampArea side="red" type="ban" order={2} />
-            <ChampArea side="red" type="ban" order={3} />
-          </RoundBanContainer>
-          <RoundBanContainer red>
-            <ChampArea side="red" type="ban" order={4} />
-            <ChampArea side="red" type="ban" order={5} />
-          </RoundBanContainer>
-        </TeamBanContainer>
-      </BansContainer>
+          <TeamBanContainer red>
+            <RoundBanContainer red>
+              {renderChampAreas(SIDE_RED, TYPE_BAN)}
+            </RoundBanContainer>
+          </TeamBanContainer>
+        </BansContainer>
 
-      <MainContainer>
-        <PicksContainer>
-          <ChampArea side="blue" type="pick" order={1} />
-          <ChampArea side="blue" type="pick" order={2} />
-          <ChampArea side="blue" type="pick" order={3} />
-          <ChampArea side="blue" type="pick" order={4} />
-          <ChampArea side="blue" type="pick" order={5} />
-        </PicksContainer>
+        <MainContainer>
+          <PicksContainer>
+            {renderChampAreas(SIDE_BLUE, TYPE_PICK)}
+          </PicksContainer>
 
-        <ChampsContainer>
-          {CHAMPIONS.map((champ) => (
-            <Champ key={champ} champName={champ} />
-          ))}
-        </ChampsContainer>
+          <ChampPool availableChamps={getAvailableChamps()} />
 
-        <PicksContainer>
-          <ChampArea side="red" type="pick" order={1} />
-          <ChampArea side="red" type="pick" order={2} />
-          <ChampArea side="red" type="pick" order={3} />
-          <ChampArea side="red" type="pick" order={4} />
-          <ChampArea side="red" type="pick" order={5} />
-        </PicksContainer>
-      </MainContainer>
-    </Container>
+          <PicksContainer>
+            {renderChampAreas(SIDE_RED, TYPE_PICK)}
+          </PicksContainer>
+        </MainContainer>
+      </Container>
+    </DndContext>
   );
 };
 
