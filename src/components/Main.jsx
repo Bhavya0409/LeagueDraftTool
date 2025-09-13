@@ -4,6 +4,7 @@ import { useDroppable } from "@dnd-kit/core";
 import { CHAMPIONS } from "../utils";
 
 import Champ from "./Champ";
+import ChampArea from "./ChampArea";
 
 const Container = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100..900&display=swap");
@@ -86,10 +87,6 @@ const ChampsContainer = styled.div`
 `;
 
 const Main = () => {
-  const { setNodeRef: setBlueBan1Ref } = useDroppable({
-    id: "blue-ban-1",
-  });
-
   return (
     <Container>
       <TeamContainer>
@@ -100,36 +97,36 @@ const Main = () => {
       <BansContainer>
         <TeamBanContainer blue>
           <RoundBanContainer blue>
-            <ChampionBox ref={setBlueBan1Ref} />
-            <ChampionBox />
-            <ChampionBox />
+            <ChampArea side="blue" type="ban" order={1} />
+            <ChampArea side="blue" type="ban" order={2} />
+            <ChampArea side="blue" type="ban" order={3} />
           </RoundBanContainer>
           <RoundBanContainer blue>
-            <ChampionBox />
-            <ChampionBox />
+            <ChampArea side="blue" type="ban" order={4} />
+            <ChampArea side="blue" type="ban" order={5} />
           </RoundBanContainer>
         </TeamBanContainer>
 
         <TeamBanContainer red>
           <RoundBanContainer red>
-            <ChampionBox />
-            <ChampionBox />
-            <ChampionBox />
+            <ChampArea side="red" type="ban" order={1} />
+            <ChampArea side="red" type="ban" order={2} />
+            <ChampArea side="red" type="ban" order={3} />
           </RoundBanContainer>
           <RoundBanContainer red>
-            <ChampionBox />
-            <ChampionBox />
+            <ChampArea side="red" type="ban" order={4} />
+            <ChampArea side="red" type="ban" order={5} />
           </RoundBanContainer>
         </TeamBanContainer>
       </BansContainer>
 
       <MainContainer>
         <PicksContainer>
-          <ChampionBox />
-          <ChampionBox />
-          <ChampionBox />
-          <ChampionBox />
-          <ChampionBox />
+          <ChampArea side="blue" type="pick" order={1} />
+          <ChampArea side="blue" type="pick" order={2} />
+          <ChampArea side="blue" type="pick" order={3} />
+          <ChampArea side="blue" type="pick" order={4} />
+          <ChampArea side="blue" type="pick" order={5} />
         </PicksContainer>
 
         <ChampsContainer>
@@ -139,11 +136,11 @@ const Main = () => {
         </ChampsContainer>
 
         <PicksContainer>
-          <ChampionBox />
-          <ChampionBox />
-          <ChampionBox />
-          <ChampionBox />
-          <ChampionBox />
+          <ChampArea side="red" type="pick" order={1} />
+          <ChampArea side="red" type="pick" order={2} />
+          <ChampArea side="red" type="pick" order={3} />
+          <ChampArea side="red" type="pick" order={4} />
+          <ChampArea side="red" type="pick" order={5} />
         </PicksContainer>
       </MainContainer>
     </Container>

@@ -17,7 +17,6 @@ const Champ = ({ champName }) => {
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-        position: "fixed",
       }
     : undefined;
 
