@@ -105,9 +105,6 @@ const Main = () => {
   const [activeId, setActiveId] = useState(null);
 
   // === Helpers ===
-  const getAvailableChamps = () => {
-    return champions.filter((c) => c.id === CHAMP_POOL).map((c) => c.name);
-  };
   const getSelectedChamp = (side, type, order) => {
     return (
       champions.find((c) => c.id === `${side}-${type}-${order}`)?.name || null
@@ -165,6 +162,7 @@ const Main = () => {
     >
       <DragOverlay
         dropAnimation={{
+          duration: 100,
           sideEffects: defaultDropAnimationSideEffects({
             styles: {
               active: {
@@ -198,7 +196,7 @@ const Main = () => {
             {renderChampAreas(SIDE_BLUE, TYPE_PICK)}
           </PicksContainer>
 
-          <ChampPool availableChamps={getAvailableChamps()} />
+          <ChampPool champions={champions} />
 
           <PicksContainer>
             {renderChampAreas(SIDE_RED, TYPE_PICK)}

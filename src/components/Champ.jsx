@@ -6,9 +6,10 @@ const ChampImage = styled.img`
   width: 80px;
   border-radius: 8px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  filter: ${(props) => (props.disabled ? `grayscale(1)` : "none")};,
 `;
 
-const Champ = ({ champName }) => {
+const Champ = ({ champName, disabled }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: champName,
@@ -22,6 +23,10 @@ const Champ = ({ champName }) => {
         cursor: "grabbing",
       }
     : undefined;
+
+  // if (champName === "Aatrox") {
+  //   console.log("Rendering Aatrox", { isDragging, disabled });
+  // }
 
   return (
     <ChampImage

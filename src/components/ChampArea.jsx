@@ -1,6 +1,7 @@
 import { ChampionBox } from "../styled";
 import { useDroppable } from "@dnd-kit/core";
 import Champ from "./Champ";
+import DisabledChampionImage from "./DisabledChampionImage";
 
 const ChampArea = ({ side, type, order, selectedChampion, activeId }) => {
   const { setNodeRef, isOver } = useDroppable({
@@ -10,7 +11,7 @@ const ChampArea = ({ side, type, order, selectedChampion, activeId }) => {
     return <Champ champName={selectedChampion} />;
   }
   if (isOver) {
-    return <Champ champName={activeId} />;
+    return <DisabledChampionImage champName={activeId} />;
   }
   return <ChampionBox ref={setNodeRef} />;
 };
