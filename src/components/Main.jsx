@@ -134,7 +134,7 @@ const Main = () => {
     setActiveId(event.active.id);
   };
   const onDragOver = (event) => {
-    console.log("over", { event });
+    // console.log("over", { event });
   };
   const onDragMove = (event) => {
     //console.log("move", { event });
@@ -149,7 +149,8 @@ const Main = () => {
           side={side}
           type={type}
           order={i}
-          champion={getSelectedChamp(side, type, i)}
+          selectedChampion={getSelectedChamp(side, type, i)}
+          activeId={activeId}
         />
       ));
   };

@@ -5,6 +5,7 @@ const ChampImage = styled.img`
   height: 80px;
   width: 80px;
   border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 const Champ = ({ champName }) => {
@@ -17,7 +18,8 @@ const Champ = ({ champName }) => {
   };
   const style = transform
     ? {
-        filter: isDragging ? `grayscale(1)` : `none`,
+        filter: `grayscale(1)`,
+        cursor: "grabbing",
       }
     : undefined;
 
