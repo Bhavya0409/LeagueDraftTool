@@ -8,15 +8,16 @@ const ChampImage = styled.img`
 `;
 
 const Champ = ({ champName }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: champName,
-  });
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: champName,
+    });
   const getImageUrl = (name) => {
     return new URL(`../assets/champs/${name}.png`, import.meta.url).href;
   };
   const style = transform
     ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        filter: isDragging ? `grayscale(1)` : `none`,
       }
     : undefined;
 
@@ -26,6 +27,7 @@ const Champ = ({ champName }) => {
       ref={setNodeRef}
       {...listeners}
       {...attributes}
+      isDragging={isDragging}
       style={style}
     />
   );

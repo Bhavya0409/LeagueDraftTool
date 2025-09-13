@@ -1,6 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { DndContext, DragOverlay } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragOverlay,
+  defaultDropAnimationSideEffects,
+} from "@dnd-kit/core";
 
 import {
   CHAMPIONS,
@@ -115,14 +119,16 @@ const Main = () => {
     setChampions(INITIAL_STATE);
   };
   const onDragEnd = (event) => {
-    const area = event.over.id;
+    if (event.over) {
+      const area = event.over.id;
 
-    setActiveId(null);
-    setChampions(
-      champions.map((champ) =>
-        champ.name === event.active.id ? { ...champ, id: area } : champ,
-      ),
-    );
+      setActiveId(null);
+      setChampions(
+        champions.map((champ) =>
+          champ.name === event.active.id ? { ...champ, id: area } : champ,
+        ),
+      );
+    }
   };
   const onDragStart = (event) => {
     setActiveId(event.active.id);
@@ -156,7 +162,17 @@ const Main = () => {
       onDragOver={onDragOver}
       onDragMove={onDragMove}
     >
-      <DragOverlay>
+      <DragOverlay
+        dropAnimation={{
+          sideEffects: defaultDropAnimationSideEffects({
+            styles: {
+              active: {
+                filter: "grayscale(1)",
+              },
+            },
+          }),
+        }}
+      >
         {activeId ? <Champ champName={activeId} /> : null}
       </DragOverlay>
       <Container>
