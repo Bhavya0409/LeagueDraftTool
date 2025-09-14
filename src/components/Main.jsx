@@ -15,7 +15,7 @@ import {
   TYPE_PICK,
 } from "../utils";
 
-import ChampArea from "./ChampArea";
+import DraftSlot from "./DraftSlot";
 import ChampPool from "./ChampPool";
 import DisabledChampionImage from "./DisabledChampionImage";
 
@@ -102,7 +102,7 @@ const Main = () => {
     id: CHAMP_POOL,
   }));
   const [champions, setChampions] = useState(INITIAL_STATE);
-  const [activeId, setActiveId] = useState(null);
+  const [draggingChamp, setDraggingChamp] = useState(null);
 
   // === Helpers ===
   const getSelectedChamp = (side, type, order) => {
@@ -119,7 +119,7 @@ const Main = () => {
     if (event.over) {
       const area = event.over.id;
 
-      setActiveId(null);
+      setDraggingChamp(null);
       setChampions(
         champions.map((champ) =>
           champ.name === event.active.id ? { ...champ, id: area } : champ,
@@ -128,7 +128,7 @@ const Main = () => {
     }
   };
   const onDragStart = (event) => {
-    setActiveId(event.active.id);
+    setDraggingChamp(event.active.id);
   };
   const onDragOver = (event) => {
     // console.log("over", { event });
@@ -142,12 +142,12 @@ const Main = () => {
     return Array(5)
       .fill()
       .map((_, i) => (
-        <ChampArea
+        <DraftSlot
           side={side}
           type={type}
           order={i}
-          selectedChampion={getSelectedChamp(side, type, i)}
-          activeId={activeId}
+          draftedChampion={getSelectedChamp(side, type, i)}
+          draggingChamp={draggingChamp}
         />
       ));
   };
@@ -165,21 +165,21 @@ const Main = () => {
           duration: 100,
           sideEffects: defaultDropAnimationSideEffects({
             styles: {
-              active: {
-                // after droppping, snapping back to position
-                filter: "grayscale(1)",
-                cursor: "grabbing",
-                background: "green",
-              },
-              dragOverlay: {
-                cursor: "grabbing",
-              },
+              //   active: {
+              //     // after droppping, snapping back to position
+              //     filter: "grayscale(1)",
+              //     cursor: "grabbing",
+              //     background: "green",
+              //   },
+              //   dragOverlay: {
+              //     cursor: "grabbing",
+              //   },
             },
           }),
         }}
       >
-        {activeId ? (
-          <DisabledChampionImage champName={activeId} isDragging={true} />
+        {draggingChamp ? (
+          <DisabledChampionImage champName={draggingChamp} isDragging={true} />
         ) : null}
       </DragOverlay>
       <Container>

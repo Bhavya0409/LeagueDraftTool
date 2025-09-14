@@ -3,17 +3,25 @@ import { useDroppable } from "@dnd-kit/core";
 import ChampionImage from "./ChampionImage/ChampionImage";
 import DisabledChampionImage from "./DisabledChampionImage";
 
-const ChampArea = ({ side, type, order, selectedChampion, activeId }) => {
+const DraftSlot = ({
+  side,
+  type,
+  order,
+  draftedChampion = null,
+  draggingChamp = null,
+}) => {
+  // === Init ===
   const { setNodeRef, isOver } = useDroppable({
     id: `${side}-${type}-${order}`,
   });
-  if (selectedChampion) {
-    return <ChampionImage champName={selectedChampion} />;
-  }
-  if (isOver) {
-    return <DisabledChampionImage champName={activeId} />;
+
+  // === Render ===
+  if (draftedChampion) {
+    return <ChampionImage champName={draftedChampion} />;
+  } else if (isOver) {
+    return <DisabledChampionImage champName={draggingChamp} />;
   }
   return <ChampionBox ref={setNodeRef} />;
 };
 
-export default ChampArea;
+export default DraftSlot;
