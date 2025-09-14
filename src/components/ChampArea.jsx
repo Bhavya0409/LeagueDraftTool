@@ -1,6 +1,6 @@
 import { ChampionBox } from "../styled";
 import { useDroppable } from "@dnd-kit/core";
-import ChampionImage from "./ChampionImage";
+import ChampionImage from "./ChampionImage/ChampionImage";
 import DisabledChampionImage from "./DisabledChampionImage";
 
 const ChampArea = ({ side, type, order, selectedChampion, activeId }) => {
