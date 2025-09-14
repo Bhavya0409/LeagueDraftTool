@@ -105,7 +105,7 @@ const Main = () => {
   const [draggingChamp, setDraggingChamp] = useState(null);
 
   // === Helpers ===
-  const getSelectedChamp = (side, type, order) => {
+  const getDraftedChampion = (side, type, order) => {
     return (
       champions.find((c) => c.id === `${side}-${type}-${order}`)?.name || null
     );
@@ -138,7 +138,7 @@ const Main = () => {
   };
 
   // === Render Helpers ===
-  const renderChampAreas = (side, type) => {
+  const renderDraftSlots = (side, type) => {
     return Array(5)
       .fill()
       .map((_, i) => (
@@ -146,7 +146,7 @@ const Main = () => {
           side={side}
           type={type}
           order={i}
-          draftedChampion={getSelectedChamp(side, type, i)}
+          draftedChampion={getDraftedChampion(side, type, i)}
           draggingChamp={draggingChamp}
         />
       ));
@@ -191,23 +191,23 @@ const Main = () => {
 
         <BansContainer>
           <RoundBanContainer blue>
-            {renderChampAreas(SIDE_BLUE, TYPE_BAN)}
+            {renderDraftSlots(SIDE_BLUE, TYPE_BAN)}
           </RoundBanContainer>
 
           <RoundBanContainer red>
-            {renderChampAreas(SIDE_RED, TYPE_BAN)}
+            {renderDraftSlots(SIDE_RED, TYPE_BAN)}
           </RoundBanContainer>
         </BansContainer>
 
         <MainContainer>
           <PicksContainer>
-            {renderChampAreas(SIDE_BLUE, TYPE_PICK)}
+            {renderDraftSlots(SIDE_BLUE, TYPE_PICK)}
           </PicksContainer>
 
           <ChampPool champions={champions} />
 
           <PicksContainer>
-            {renderChampAreas(SIDE_RED, TYPE_PICK)}
+            {renderDraftSlots(SIDE_RED, TYPE_PICK)}
           </PicksContainer>
         </MainContainer>
       </Container>

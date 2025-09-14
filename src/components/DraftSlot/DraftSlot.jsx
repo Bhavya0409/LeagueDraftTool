@@ -1,7 +1,7 @@
-import { ChampionBox } from "../styled";
+import { ChampionBox } from "../../styled";
 import { useDroppable } from "@dnd-kit/core";
-import ChampionImage from "./ChampionImage/ChampionImage";
-import DisabledChampionImage from "./DisabledChampionImage";
+import ChampionImage from "../ChampionImage/ChampionImage";
+import DisabledChampionImage from "../DisabledChampionImage";
 
 const DraftSlot = ({
   side,
