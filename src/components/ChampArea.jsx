@@ -1,6 +1,6 @@
 import { ChampionBox } from "../styled";
 import { useDroppable } from "@dnd-kit/core";
-import Champ from "./Champ";
+import ChampionImage from "./ChampionImage";
 import DisabledChampionImage from "./DisabledChampionImage";
 
 const ChampArea = ({ side, type, order, selectedChampion, activeId }) => {
@@ -8,7 +8,7 @@ const ChampArea = ({ side, type, order, selectedChampion, activeId }) => {
     id: `${side}-${type}-${order}`,
   });
   if (selectedChampion) {
-    return <Champ champName={selectedChampion} />;
+    return <ChampionImage champName={selectedChampion} />;
   }
   if (isOver) {
     return <DisabledChampionImage champName={activeId} />;
