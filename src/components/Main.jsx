@@ -1,10 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import {
-  DndContext,
-  DragOverlay,
-  defaultDropAnimationSideEffects,
-} from "@dnd-kit/core";
+import { DndContext, DragOverlay } from "@dnd-kit/core";
 
 import {
   CHAMPIONS,
@@ -76,11 +72,12 @@ const RoundBanContainer = styled.div`
   display: flex;
   flex-direction: row;
   column-gap: 12px;
-  flex-direction: ${(props) => (props.blue ? "row" : "row-reverse")};
+  flex-direction: ${(props) =>
+    props.side === SIDE_BLUE ? "row" : "row-reverse"};
 
   & > *:nth-child(3) {
-    margin-right: ${(props) => (props.blue ? "32px" : "0")};
-    margin-left: ${(props) => (props.blue ? "0" : "32px")};
+    margin-right: ${(props) => (props.side === SIDE_BLUE ? "32px" : "0")};
+    margin-left: ${(props) => (props.side === SIDE_BLUE ? "0" : "32px")};
   }
 `;
 const MainContainer = styled.div`
@@ -105,6 +102,14 @@ const Main = () => {
   const [draggingChamp, setDraggingChamp] = useState(null);
 
   // === Helpers ===
+  /**
+   * Gets the name of the champion drafted for a given side/type/order
+   *
+   * @param {SIDE_BLUE || SIDE_RED} side - Which side the champion is on
+   * @param {TYPE_BAN || TYPE_PICK} type - Whether the champion is a ban or a pick
+   * @param {number} order - The order of the pick/ban (0-4)
+   * @returns Name of the champion or null if none drafted
+   */
   const getDraftedChampion = (side, type, order) => {
     return (
       champions.find((c) => c.id === `${side}-${type}-${order}`)?.name || null
@@ -130,12 +135,6 @@ const Main = () => {
   const onDragStart = (event) => {
     setDraggingChamp(event.active.id);
   };
-  const onDragOver = (event) => {
-    // console.log("over", { event });
-  };
-  const onDragMove = (event) => {
-    //console.log("move", { event });
-  };
 
   // === Render Helpers ===
   const renderDraftSlots = (side, type) => {
@@ -143,6 +142,7 @@ const Main = () => {
       .fill()
       .map((_, i) => (
         <DraftSlot
+          key={i}
           side={side}
           type={type}
           order={i}
@@ -154,28 +154,10 @@ const Main = () => {
 
   // === Return ===
   return (
-    <DndContext
-      onDragEnd={onDragEnd}
-      onDragStart={onDragStart}
-      onDragOver={onDragOver}
-      onDragMove={onDragMove}
-    >
+    <DndContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
       <DragOverlay
         dropAnimation={{
           duration: 100,
-          sideEffects: defaultDropAnimationSideEffects({
-            styles: {
-              //   active: {
-              //     // after droppping, snapping back to position
-              //     filter: "grayscale(1)",
-              //     cursor: "grabbing",
-              //     background: "green",
-              //   },
-              //   dragOverlay: {
-              //     cursor: "grabbing",
-              //   },
-            },
-          }),
         }}
       >
         {draggingChamp ? (
@@ -190,11 +172,11 @@ const Main = () => {
         </TeamContainer>
 
         <BansContainer>
-          <RoundBanContainer blue>
+          <RoundBanContainer $side={SIDE_BLUE}>
             {renderDraftSlots(SIDE_BLUE, TYPE_BAN)}
           </RoundBanContainer>
 
-          <RoundBanContainer red>
+          <RoundBanContainer $side={SIDE_RED}>
             {renderDraftSlots(SIDE_RED, TYPE_BAN)}
           </RoundBanContainer>
         </BansContainer>
