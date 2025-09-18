@@ -26,3 +26,12 @@ export const ChampsContainer = styled.div`
     display: none;
   }
 `;
+export const ChampionImage2 = styled.img`
+  height: 80px;
+  width: 80px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  filter: ${(props) => (props.isDragging ? "grayscale(0)" : "grayscale(1)")};
+  cursor: ${(props) => (props.isDragging ? "grabbing" : "not-allowed")};
+  opacity: ${(props) => (props.isDragging ? 1 : 0.3)};
+`;

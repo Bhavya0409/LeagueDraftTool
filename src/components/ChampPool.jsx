@@ -1,9 +1,8 @@
 import { useDroppable } from "@dnd-kit/core";
 
-import { ChampsContainer } from "../styled";
+import { ChampsContainer, ChampionImage2 } from "../styled";
 import ChampionImage from "./ChampionImage";
 import { CHAMP_POOL } from "../utils";
-import DisabledChampionImage from "./DisabledChampionImage";
 
 const ChampPool = ({ champions }) => {
   // === Init ===
@@ -22,7 +21,13 @@ const ChampPool = ({ champions }) => {
             disabled={champ.id !== CHAMP_POOL}
           />
         ) : (
-          <DisabledChampionImage key={champ.name} champName={champ.name} />
+          <ChampionImage2
+            key={champ.name}
+            src={
+              new URL(`../assets/champs/${champ.name}.png`, import.meta.url)
+                .href
+            }
+          />
         ),
       )}
     </ChampsContainer>

@@ -11,11 +11,12 @@ const Image = styled.img`
 `;
 
 const DisabledChampionImage = ({ champName, isDragging = false }) => {
-  const getImageUrl = (name) => {
-    return new URL(`../assets/champs/${name}.png`, import.meta.url).href;
-  };
-
-  return <Image src={getImageUrl(champName)} isDragging={isDragging} />;
+  return (
+    <Image
+      src={new URL(`../assets/champs/${champName}.png`, import.meta.url).href}
+      isDragging={isDragging}
+    />
+  );
 };
 
 export default DisabledChampionImage;
