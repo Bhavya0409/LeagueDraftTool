@@ -14,7 +14,7 @@ import {
 import DraftSlot from "./DraftSlot";
 import ChampPool from "./ChampPool";
 
-import { ChampionImage2 } from "../styled";
+import { DraggingImage } from "../styled";
 
 const Container = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100..900&display=swap");
@@ -162,12 +162,11 @@ const Main = () => {
         }}
       >
         {draggingChamp ? (
-          <ChampionImage2
+          <DraggingImage
             src={
               new URL(`../assets/champs/${draggingChamp}.png`, import.meta.url)
                 .href
             }
-            isDragging={true}
           />
         ) : null}
       </DragOverlay>
