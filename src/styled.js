@@ -30,10 +30,6 @@ export const EmptyBox = styled.div`
     cursor: pointer;
   }
 `;
-// The box styling when a champion existed in its place
-export const AssignedChampionBox = styled.img`
-  ${defaultBoxStyles}
-`;
 // The styling of the origin state when the element has been picked up
 export const ResidueImage = styled.img`
   ${defaultBoxStyles}

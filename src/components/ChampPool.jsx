@@ -2,7 +2,6 @@ import { useDroppable } from "@dnd-kit/core";
 
 import { ChampsContainer, PlaceholderImage } from "../styled";
 import ChampionImage from "./ChampionImage";
-import AssignedChampion from "./AssignedChampion";
 import { CHAMP_POOL } from "../utils";
 
 const ChampPool = ({ champions }) => {
@@ -18,7 +17,6 @@ const ChampPool = ({ champions }) => {
         champ.id === CHAMP_POOL ? (
           <ChampionImage key={champ.name} champName={champ.name} />
         ) : (
-          // <AssignedChampion championName={champ.name} />
           <PlaceholderImage
             key={champ.name}
             src={

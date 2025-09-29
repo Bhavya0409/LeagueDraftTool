@@ -161,14 +161,12 @@ const Main = () => {
           duration: 100,
         }}
       >
-        {draggingChamp ? (
-          <DraggingImage
-            src={
-              new URL(`../assets/champs/${draggingChamp}.png`, import.meta.url)
-                .href
-            }
-          />
-        ) : null}
+        <DraggingImage
+          src={
+            new URL(`../assets/champs/${draggingChamp}.png`, import.meta.url)
+              .href
+          }
+        />
       </DragOverlay>
       <Container>
         <TeamContainer>
