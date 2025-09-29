@@ -12,7 +12,7 @@ import {
 } from "../utils";
 
 import DraftSlot from "./DraftSlot";
-import ChampPool from "./ChampPool";
+import ChampionPool from "./ChampionPool";
 
 import { DraggingImage } from "../styled";
 
@@ -190,7 +190,7 @@ const Main = () => {
             {renderDraftSlots(SIDE_BLUE, TYPE_PICK)}
           </PicksContainer>
 
-          <ChampPool champions={champions} />
+          <ChampionPool champions={champions} />
 
           <PicksContainer>
             {renderDraftSlots(SIDE_RED, TYPE_PICK)}
