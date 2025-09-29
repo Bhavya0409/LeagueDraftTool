@@ -1,6 +1,6 @@
 import { useDroppable } from "@dnd-kit/core";
 
-import ChampionImage from "../ChampionImage";
+import ChampionImage from "../AssignedChampion";
 
 import { ChampionBox, ProjectedImage } from "../../styled";
 

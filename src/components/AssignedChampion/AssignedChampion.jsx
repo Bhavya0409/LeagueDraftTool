@@ -1,13 +1,13 @@
 import { useDraggable } from "@dnd-kit/core";
 
-import { ChampionImageContainer } from "./styled";
+import { AssignedChampionContainer } from "./styled";
 
 /**
  * Renders a draggable champion image.
  *
  * @param {string} champName - Name of the champion
  */
-const ChampionImage = ({ champName }) => {
+const AssignedChampion = ({ champName }) => {
   // === Init ===
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: champName,
@@ -15,7 +15,7 @@ const ChampionImage = ({ champName }) => {
 
   // === Render ===
   return (
-    <ChampionImageContainer
+    <AssignedChampionContainer
       src={
         new URL(`../../assets/champs/${champName}.png`, import.meta.url).href
       }
@@ -27,4 +27,4 @@ const ChampionImage = ({ champName }) => {
   );
 };
 
-export default ChampionImage;
+export default AssignedChampion;

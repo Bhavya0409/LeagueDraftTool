@@ -1,7 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 
 import { ChampsContainer, PlaceholderImage } from "../styled";
-import ChampionImage from "./ChampionImage";
+import ChampionImage from "./AssignedChampion";
 import { CHAMP_POOL } from "../utils";
 
 const ChampPool = ({ champions }) => {
