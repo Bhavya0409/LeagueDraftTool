@@ -1,4 +1,4 @@
-export const CHAMP_POOL = "champ-pool";
+export const CHAMPION_POOL = "champion-pool";
 export const SIDE_BLUE = "blue";
 export const SIDE_RED = "red";
 export const TYPE_BAN = "ban";

@@ -4,7 +4,7 @@ import { DndContext, DragOverlay } from "@dnd-kit/core";
 
 import {
   CHAMPIONS,
-  CHAMP_POOL,
+  CHAMPION_POOL,
   SIDE_BLUE,
   SIDE_RED,
   TYPE_BAN,
@@ -97,7 +97,7 @@ const Main = () => {
   // === Init ===
   const INITIAL_STATE = CHAMPIONS.map((champ) => ({
     name: champ,
-    id: CHAMP_POOL,
+    id: CHAMPION_POOL,
   }));
   const [champions, setChampions] = useState(INITIAL_STATE);
   const [draggingChamp, setDraggingChamp] = useState(null);

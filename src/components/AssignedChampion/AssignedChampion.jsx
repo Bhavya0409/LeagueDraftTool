@@ -5,19 +5,19 @@ import { AssignedChampionContainer } from "./styled";
 /**
  * Renders a draggable champion image.
  *
- * @param {string} champName - Name of the champion
+ * @param {string} championName - Name of the champion
  */
-const AssignedChampion = ({ champName }) => {
+const AssignedChampion = ({ championName }) => {
   // === Init ===
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
-    id: champName,
+    id: championName,
   });
 
   // === Render ===
   return (
     <AssignedChampionContainer
       src={
-        new URL(`../../assets/champs/${champName}.png`, import.meta.url).href
+        new URL(`../../assets/champs/${championName}.png`, import.meta.url).href
       }
       ref={setNodeRef}
       {...listeners}

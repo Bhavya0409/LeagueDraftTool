@@ -1,8 +1,9 @@
 import { useDroppable } from "@dnd-kit/core";
 
-import ChampionImage from "../AssignedChampion";
+import AssignedChampion from "../AssignedChampion";
 
-import { ChampionBox, ProjectedImage } from "../../styled";
+import { ProjectedImage } from "../../styled";
+import { ChampionBox } from "./styled";
 
 const DraftSlot = ({
   side,
@@ -19,9 +20,9 @@ const DraftSlot = ({
   // === Render ===
   if (draftedChampion) {
     // If a champion has been drafted for this slot, show it
-    return <ChampionImage champName={draftedChampion} />;
+    return <AssignedChampion championName={draftedChampion} />;
   } else if (isOver) {
-    // If a champ is being dragged over this slot, show the dragging champ in grayscale
+    // If a champion is being dragged over this slot, show the dragging champ in grayscale
     return (
       <ProjectedImage
         src={

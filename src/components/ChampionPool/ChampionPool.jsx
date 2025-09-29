@@ -1,27 +1,30 @@
 import { useDroppable } from "@dnd-kit/core";
 
-import { ChampsContainer, PlaceholderImage } from "../../styled";
+import { PlaceholderImage } from "../../styled";
+import { ChampsContainer } from "./styled";
 import AssignedChampion from "../AssignedChampion";
-import { CHAMP_POOL } from "../../utils";
+import { CHAMPION_POOL } from "../../utils";
 
 const ChampionPool = ({ champions }) => {
   // === Init ===
   const { setNodeRef } = useDroppable({
-    id: CHAMP_POOL,
+    id: CHAMPION_POOL,
   });
 
   // === Return ===
   return (
     <ChampsContainer ref={setNodeRef}>
-      {champions.map((champ) =>
-        champ.id === CHAMP_POOL ? (
-          <AssignedChampion key={champ.name} champName={champ.name} />
+      {champions.map((champion) =>
+        champion.id === CHAMPION_POOL ? (
+          <AssignedChampion key={champion.name} championName={champion.name} />
         ) : (
           <PlaceholderImage
-            key={champ.name}
+            key={champion.name}
             src={
-              new URL(`../../assets/champs/${champ.name}.png`, import.meta.url)
-                .href
+              new URL(
+                `../../assets/champs/${champion.name}.png`,
+                import.meta.url,
+              ).href
             }
           />
         ),
